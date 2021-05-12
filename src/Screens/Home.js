@@ -91,24 +91,22 @@ export default function Home() {
 const ImageCarousel = (props) => {
   return (
     <View style={{paddingBottom: 5, marginTop: 10}}>
-      <TouchableOpacity>
-        <View
-          style={{
-            height: 200,
-            margin: 5,
-            borderRadius: 15,
-            width: Dimensions.get('window').width - 20,
-            marginTop: 15,
-          }}>
-          <Image
-            source={{
-              uri: props.item,
-            }}
-            resizeMode="stretch"
-            style={{width: '100%', height: '100%', borderRadius: 10}}
-          />
-        </View>
-      </TouchableOpacity>
+      <View
+        style={{
+          height: 200,
+          margin: 5,
+
+          width: Dimensions.get('window').width - 20,
+          marginTop: 15,
+        }}>
+        <Image
+          source={{
+            uri: props.item,
+          }}
+          resizeMode="stretch"
+          style={{width: '100%', height: '100%'}}
+        />
+      </View>
     </View>
   );
 };
