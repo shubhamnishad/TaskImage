@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,12 +7,15 @@ import {
   Dimensions,
   Image,
   FlatList,
+  ActivityIndicator,
+  Text,
 } from 'react-native';
 import {LOAD_IMAGE} from '../Redux/Actions';
 import {useDispatch, useSelector} from 'react-redux';
 
 export default function Home() {
   const dispatch = useDispatch();
+  const [isLoading, setLoading] = useState(true);
   const {imagePath} = useSelector((state) => state.loadImageReducer);
 
   useEffect(() => {
@@ -32,6 +35,7 @@ export default function Home() {
               imagePath: json,
             },
           });
+          setLoading(false);
         })
         .catch((error) => console.error(error));
     } catch (e) {
@@ -44,15 +48,23 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <View style={{flex: 1, marginTop: 10}}>
-        <ScrollView
-          horizontal={true}
-          nestedScrollEnabled={true}
-          showsHorizontalScrollIndicator={false}>
-          {ImageCarouselArray.length > 0 &&
-            ImageCarouselArray.map((item) => {
-              return <ImageCarousel item={item} />;
-            })}
-        </ScrollView>
+        {isLoading ? (
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <ActivityIndicator size="large" color="blue" />
+            <Text> Loading..</Text>
+          </View>
+        ) : (
+          <ScrollView
+            horizontal={true}
+            nestedScrollEnabled={true}
+            showsHorizontalScrollIndicator={false}>
+            {ImageCarouselArray.length > 0 &&
+              ImageCarouselArray.map((item) => {
+                return <ImageCarousel item={item} />;
+              })}
+          </ScrollView>
+        )}
       </View>
       <View
         style={{
@@ -60,11 +72,19 @@ export default function Home() {
           marginTop: 10,
           marginBottom: 10,
         }}>
-        <FlatList
-          data={imagePath}
-          renderItem={({item}) => <ImageGrid path={item} />}
-          numColumns={2}
-        />
+        {isLoading ? (
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <ActivityIndicator size="large" color="blue" />
+            <Text> Loading..</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={imagePath}
+            renderItem={({item}) => <ImageGrid path={item} />}
+            numColumns={2}
+          />
+        )}
       </View>
     </View>
   );
