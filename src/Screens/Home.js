@@ -52,7 +52,6 @@ export default function Home() {
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <ActivityIndicator size="large" color="blue" />
-            <Text> Loading..</Text>
           </View>
         ) : (
           <ScrollView
@@ -76,7 +75,6 @@ export default function Home() {
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <ActivityIndicator size="large" color="blue" />
-            <Text> Loading..</Text>
           </View>
         ) : (
           <FlatList
